@@ -1,5 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
+import * as Icons from "lucide-react";
 import { skillsData } from "../data/skills";
 
 const container = {
@@ -19,8 +20,16 @@ const item = {
 const Skills = () => {
   const topSkills = skillsData.filter((cat) => cat.top);
 
+  // 🔥 Dynamic Icon Loader with Color Support
+  const getIcon = (iconName, color = "") => {
+    const IconComponent = Icons[iconName];
+    return IconComponent ? (
+      <IconComponent size={18} className={color} />
+    ) : null;
+  };
+
   return (
-    <section className="py-20 px-6 bg-[#0a0a0a] text-white">
+    <section id="skills" className="py-20 px-6 bg-[#0a0a0a] text-white">
       <div className="max-w-6xl mx-auto">
 
         {/* Heading */}
@@ -32,7 +41,7 @@ const Skills = () => {
           Skills & Expertise
         </motion.h2>
 
-        {/* ⭐ Top Skills Highlight */}
+        {/* ⭐ Top Skills */}
         <div className="mb-14">
           <h3 className="text-xl font-semibold mb-4 text-purple-400">
             ⭐ Top Skills
@@ -43,11 +52,13 @@ const Skills = () => {
               cat.skills.slice(0, 3).map((skill, i) => (
                 <span
                   key={i}
-                  className="px-4 py-2 rounded-full bg-white/10 border border-white/10 
+                  className="flex items-center gap-2 px-4 py-2 rounded-full 
+                  bg-white/10 border border-white/10 
                   hover:shadow-[0_0_15px_rgba(168,85,247,0.6)] 
                   transition-all duration-300"
                 >
-                  {skill}
+                  {getIcon(skill.icon, skill.color)}
+                  {skill.name}
                 </span>
               ))
             )}
@@ -69,14 +80,18 @@ const Skills = () => {
               hover:border-purple-500/40 hover:shadow-[0_0_25px_rgba(168,85,247,0.25)]
               transition-all duration-300 relative overflow-hidden group"
             >
-              {/* Glow effect */}
+              {/* Glow */}
               <div className="absolute inset-0 opacity-0 group-hover:opacity-100 
               bg-gradient-to-r from-purple-500/10 to-pink-500/10 transition-all duration-500" />
 
               {/* Header */}
               <div className="flex items-center gap-3 mb-4 relative z-10">
-                <span className="text-2xl">{category.icon}</span>
-                <h3 className="text-xl font-semibold">{category.category}</h3>
+                <span>
+                  {getIcon(category.icon, "text-purple-400")}
+                </span>
+                <h3 className="text-xl font-semibold">
+                  {category.category}
+                </h3>
               </div>
 
               {/* Skills */}
@@ -85,19 +100,21 @@ const Skills = () => {
                   <motion.span
                     key={i}
                     variants={item}
-                    className="px-3 py-1 text-sm rounded-full 
+                    className="flex items-center gap-2 px-3 py-1 text-sm rounded-full 
                     bg-white/10 border border-white/10 
                     hover:bg-purple-500/20 hover:scale-105
                     hover:shadow-[0_0_12px_rgba(168,85,247,0.5)]
                     transition-all duration-300"
                   >
-                    {skill}
+                    {getIcon(skill.icon, skill.color)}
+                    {skill.name}
                   </motion.span>
                 ))}
               </div>
             </motion.div>
           ))}
         </motion.div>
+
       </div>
     </section>
   );

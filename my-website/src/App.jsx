@@ -1,6 +1,7 @@
 import Navbar from "./components/layout/Navbar";
 import Footer from "./components/layout/Footer";
 import Hero from "./sections/Hero";
+import Projects from "./sections/Projects";
 import Skills from "./sections/Skills";
 import Contact from "./sections/Contact";
 
@@ -11,6 +12,7 @@ export default function App() {
 
       <main className="pt-16">
         <Hero />
+        <Projects />
         <Skills />
         <Contact />
       </main>
