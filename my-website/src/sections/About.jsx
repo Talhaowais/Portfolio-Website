@@ -1,5 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { Typewriter } from "react-simple-typewriter";
 import {
   Briefcase,
   Code,
@@ -13,105 +14,129 @@ const About = () => {
   return (
     <section className="py-20 px-6 bg-[#0a0a0a] text-white">
 
-      {/* SECTION TITLE (CENTERED) */}
-      <div className="text-center mb-12">
+      {/* TITLE */}
+      <div className="text-center mb-10">
         <h2 className="text-4xl font-bold">About Me</h2>
       </div>
 
-      {/* BIG STATEMENT */}
-      <motion.p
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-        className="text-center text-2xl md:text-3xl font-semibold max-w-4xl mx-auto mb-16 text-gray-200 leading-relaxed"
-      >
-        From QA Engineer to Full-Stack Developer — building real-time
-        applications with a strong foundation in quality and performance.
-      </motion.p>
+      {/* ✨ GRADIENT TYPING HERO STATEMENT */}
+      <div className="text-center mb-16">
+        <h1 className="text-2xl md:text-3xl font-bold">
+          <span className="bg-gradient-to-r from-purple-400 via-pink-500 to-cyan-400 bg-clip-text text-transparent animate-pulse">
+            <Typewriter
+              words={[
+                "From QA Engineer to Full-Stack Developer — building real-time applications with a strong foundation in quality and performance."
+              ]}
+              loop={1}
+              cursor
+              cursorStyle="|"
+              typeSpeed={40}
+              deleteSpeed={0}
+              delaySpeed={1000}
+            />
+          </span>
+        </h1>
+      </div>
 
-      <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-start">
+      <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12">
 
-        {/* LEFT SIDE — STORY */}
+        {/* LEFT — TIMELINE */}
         <motion.div
           initial={{ opacity: 0, x: -40 }}
           whileInView={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.6 }}
+          className="space-y-8"
         >
-          <p className="text-gray-300 leading-relaxed mb-4">
-            I started my journey in tech during the COVID period in late 2021,
-            with a strong interest in software development. Like many beginners,
-            the initial phase was challenging, and breaking into the industry
-            wasn’t easy.
-          </p>
+          <h3 className="text-xl font-semibold text-purple-400 mb-6">
+            My Journey (2021 → 2026)
+          </h3>
 
-          <p className="text-gray-300 leading-relaxed mb-4">
-            To support my family, I took on multiple roles — working in a call
-            center while also doing bike rides through Uber. During this time, I
-            explored different paths in tech and discovered Quality Assurance (QA).
-          </p>
+          <div className="border-l border-white/10 pl-6 space-y-6">
 
-          <p className="text-gray-300 leading-relaxed mb-4">
-            Within a short period of focused learning, I secured my first role as
-            a QA engineer. Starting with a modest salary, I fully committed myself
-            to growth — learning continuously, improving my skills, and eventually
-            mentoring junior team members. I also expanded into automation alongside
-            manual testing.
-          </p>
+            <div>
+              <p className="text-purple-400 font-semibold">2021</p>
+              <p className="text-gray-300">
+                Started journey in tech during COVID, exploring development.
+              </p>
+            </div>
 
-          <p className="text-gray-300 leading-relaxed mb-4">
-            As I became financially stable, I revisited my original passion for
-            development. I began learning modern technologies like React and advanced
-            JavaScript, while also working on side projects.
-          </p>
+            <div>
+              <p className="text-purple-400 font-semibold">2022</p>
+              <p className="text-gray-300">
+                Worked in call center + Uber rides while learning tech.
+              </p>
+            </div>
 
-          <p className="text-gray-300 leading-relaxed">
-            Today, I am actively transitioning into a full-stack developer role —
-            combining my background in QA with strong development skills to build
-            scalable, real-time applications.
-          </p>
+            <div>
+              <p className="text-purple-400 font-semibold">2023</p>
+              <p className="text-gray-300">
+                Entered QA field, started as manual QA engineer.
+              </p>
+            </div>
+
+            <div>
+              <p className="text-purple-400 font-semibold">2024</p>
+              <p className="text-gray-300">
+                Promoted growth in QA, started automation + mentoring juniors.
+              </p>
+            </div>
+
+            <div>
+              <p className="text-purple-400 font-semibold">2025</p>
+              <p className="text-gray-300">
+                Revisited development, learned React & advanced JS.
+              </p>
+            </div>
+
+            <div>
+              <p className="text-purple-400 font-semibold">2026</p>
+              <p className="text-gray-300">
+                Transitioning fully into Full-Stack Developer role.
+              </p>
+            </div>
+
+          </div>
         </motion.div>
 
-        {/* RIGHT SIDE — CARDS */}
+        {/* RIGHT — HIGHLIGHTS */}
         <motion.div
           initial={{ opacity: 0, x: 40 }}
           whileInView={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.6 }}
           className="grid grid-cols-2 gap-6"
         >
           <div className="card">
-            <Briefcase className="icon text-purple-400" />
+            <Briefcase className="text-purple-400 mb-3" />
             <h3>Experience</h3>
-            <p>QA Engineer → Full-Stack Developer</p>
+            <p>QA → Full-Stack</p>
           </div>
 
           <div className="card">
-            <Code className="icon text-cyan-400" />
-            <h3>Development</h3>
-            <p>MERN & PERN Stack Applications</p>
+            <Code className="text-cyan-400 mb-3" />
+            <h3>Stack</h3>
+            <p>MERN + PERN</p>
           </div>
 
           <div className="card">
-            <Zap className="icon text-yellow-400" />
-            <h3>Real-Time Apps</h3>
-            <p>Socket.IO based systems</p>
+            <Zap className="text-yellow-400 mb-3" />
+            <h3>Real-Time</h3>
+            <p>Socket.IO Apps</p>
           </div>
 
           <div className="card">
-            <ShieldCheck className="icon text-green-400" />
+            <ShieldCheck className="text-green-400 mb-3" />
             <h3>Security</h3>
-            <p>JWT Authentication</p>
+            <p>JWT Auth</p>
           </div>
 
           <div className="card">
-            <Users className="icon text-blue-400" />
-            <h3>Teamwork</h3>
-            <p>Mentored Junior Engineers</p>
+            <Users className="text-blue-400 mb-3" />
+            <h3>Mentorship</h3>
+            <p>Trained Juniors</p>
           </div>
 
           <div className="card">
-            <Rocket className="icon text-pink-400" />
+            <Rocket className="text-pink-400 mb-3" />
             <h3>Goal</h3>
-            <p>Scalable real-world apps</p>
+            <p>Scalable Apps</p>
           </div>
         </motion.div>
 
