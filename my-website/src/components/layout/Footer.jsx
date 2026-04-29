@@ -6,9 +6,6 @@ export default function Footer() {
       <Container>
         <div className="text-center text-gray-400 text-sm">
           <p>© {new Date().getFullYear()} Muhammad Talha</p>
-          <p className="mt-2">
-            Built with React & Tailwind CSS
-          </p>
         </div>
       </Container>
     </footer>
