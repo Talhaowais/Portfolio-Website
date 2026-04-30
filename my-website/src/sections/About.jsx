@@ -23,7 +23,7 @@ const About = () => {
   ];
 
   return (
-    <section className="py-20 px-6 bg-[#0a0a0a] text-white">
+    <section id="about" className="py-20 px-6 bg-[#0a0a0a] text-white">
 
       {/* TITLE */}
       <div className="text-center mb-10">
@@ -173,7 +173,7 @@ const About = () => {
                       {/* Path from Card 1 -> 2 (Horizontal Bridge) */}
                       {!isRightCol && (index + 1 < timelineData.length) && (
                         <path
-                          d="M 460 0 L 585 0"
+                          d="M 460 0 L 525 0"
                           stroke="#a855f7"
                           strokeWidth="2.5"
                           strokeDasharray="5,5"

@@ -1,6 +1,5 @@
 import Container from "../components/ui/Container";
 import SectionTitle from "../components/ui/SectionTitle";
-import Card from "../components/ui/Card";
 import { contact } from "../data/contact";
 
 import { Mail, Phone, MapPin, Globe, Share2 } from "lucide-react";
@@ -8,30 +7,32 @@ import { motion } from "framer-motion";
 
 export default function Contact() {
   return (
-    <section id="contact" className="py-24">
+    <section id="contact" className="py-24 bg-[#0a0a0a] text-white">
       <Container>
+
         <SectionTitle
           title="Contact Me"
           subtitle="Let’s build something amazing together"
         />
 
-        {/* Contact Cards */}
-        <div className="grid md:grid-cols-3 gap-6">
+        {/* CONTACT CARDS */}
+        <div className="grid md:grid-cols-3 gap-6 mt-10">
+
           {[
             {
-              icon: <Mail size={20} />,
+              icon: <Mail className="text-purple-400" size={20} />,
               label: "Email",
               value: contact.email,
               link: `mailto:${contact.email}`,
             },
             {
-              icon: <Phone size={20} />,
+              icon: <Phone className="text-green-400" size={20} />,
               label: "Phone",
               value: contact.phone,
               link: `tel:${contact.phone}`,
             },
             {
-              icon: <MapPin size={20} />,
+              icon: <MapPin className="text-cyan-400" size={20} />,
               label: "Location",
               value: contact.location,
               link: null,
@@ -39,69 +40,84 @@ export default function Contact() {
           ].map((item, i) => (
             <motion.div
               key={i}
-              initial={{ opacity: 0, y: 40 }}
+              initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: i * 0.2 }}
+              transition={{ delay: i * 0.15 }}
               viewport={{ once: true }}
+              whileHover={{ y: -6 }}
+              className="relative group"
             >
-              <Card>
-                <div className="flex items-center gap-3 mb-3 text-white">
+
+              {/* SOFT GLOW BORDER */}
+              <div className="card absolute -inset-[1px] rounded-2xl bg-gradient-to-r from-purple-500/10 via-cyan-500/10 to-green-500/10 opacity-0 group-hover:opacity-30 blur-md transition duration-500" />
+
+              {/* CARD */}
+              <div className="card relative bg-white/5 border border-white/10 rounded-2xl p-6 backdrop-blur-md transition duration-300 group-hover:border-white/20">
+
+                {/* ICON + LABEL */}
+                <div className="flex items-center gap-3 mb-4">
                   {item.icon}
-                  <h3 className="font-semibold">{item.label}</h3>
+                  <h3 className="font-semibold text-white text-sm">
+                    {item.label}
+                  </h3>
                 </div>
 
+                {/* VALUE */}
                 {item.link ? (
                   <a
                     href={item.link}
-                    className="text-gray-400 hover:text-white transition"
+                    className="text-gray-400 hover:text-gray-200 transition text-sm break-all"
                   >
                     {item.value}
                   </a>
                 ) : (
-                  <p className="text-gray-400">{item.value}</p>
+                  <p className="text-gray-400 text-sm">
+                    {item.value}
+                  </p>
                 )}
-              </Card>
+              </div>
             </motion.div>
           ))}
         </div>
 
-        {/* Socials */}
+        {/* SOCIALS */}
         <motion.div
-          className="flex justify-center gap-6 mt-12"
+          className="flex justify-center gap-8 mt-14"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
-          transition={{ delay: 0.4 }}
+          transition={{ delay: 0.3 }}
           viewport={{ once: true }}
         >
           <a
             href={contact.socials.github}
             target="_blank"
-            className="flex items-center gap-2 text-gray-400 hover:text-white transition"
+            className="flex items-center gap-2 text-gray-400 hover:text-white transition text-sm"
           >
-            <Globe size={18} />
+            <Globe size={18} className="text-purple-400" />
             GitHub
           </a>
 
           <a
             href={contact.socials.linkedin}
             target="_blank"
-            className="flex items-center gap-2 text-gray-400 hover:text-white transition"
+            className="flex items-center gap-2 text-gray-400 hover:text-white transition text-sm"
           >
-            <Share2 size={18} />
+            <Share2 size={18} className="text-cyan-400" />
             LinkedIn
           </a>
         </motion.div>
 
-        {/* Message */}
+        {/* MESSAGE */}
         <motion.p
-          className="text-center text-gray-500 mt-10 max-w-xl mx-auto"
+          className="text-center text-gray-500 mt-10 max-w-xl mx-auto text-sm"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
-          transition={{ delay: 0.6 }}
+          transition={{ delay: 0.5 }}
           viewport={{ once: true }}
         >
           {contact.message}
         </motion.p>
+
       </Container>
     </section>
   );
