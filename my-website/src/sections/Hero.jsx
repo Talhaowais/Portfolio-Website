@@ -24,7 +24,7 @@ const Hero = () => {
 
           {/* Availability Badge */}
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-green-400/30 bg-green-400/10 text-green-300 text-xs mb-6">
-            ● Available for freelance & full-time work
+            ● Available for freelance, part-time & full-time work
           </div>
 
           {/* NAME */}
@@ -66,15 +66,31 @@ const Hero = () => {
           </p>
 
           {/* CTA BUTTONS */}
-          <div className="flex gap-4 mt-8">
-            <button className="px-6 py-3 rounded-xl bg-purple-600 hover:bg-purple-700 transition flex items-center gap-2 shadow-lg hover:shadow-purple-500/30">
-              Let’s Build Something <ArrowRight size={18} />
-            </button>
+          {/* CTA BUTTONS */}
+<div className="flex gap-4 mt-8">
+  
+  {/* Scroll to Contact */}
+  <button
+    onClick={() => {
+      document.getElementById("contact").scrollIntoView({
+        behavior: "smooth",
+      });
+    }}
+    className="px-6 py-3 rounded-xl bg-purple-600 hover:bg-purple-700 transition flex items-center gap-2 shadow-lg hover:shadow-purple-500/30"
+  >
+    Let’s Build Something <ArrowRight size={18} />
+  </button>
 
-            <button className="px-6 py-3 rounded-xl border border-white/20 hover:border-white/40 transition flex items-center gap-2">
-              Resume <Download size={18} />
-            </button>
-          </div>
+  {/* Resume Download */}
+  <a
+    // href="/resume.pdf"
+    download="Muhammad_Talha_Resume.pdf"
+    className="px-6 py-3 rounded-xl border border-white/20 hover:border-white/40 transition flex items-center gap-2"
+  >
+    Resume <Download size={18} />
+  </a>
+
+</div>
         </motion.div>
 
         {/* RIGHT VISUAL */}
@@ -121,7 +137,7 @@ const Hero = () => {
             <div>
               <p className="text-gray-400 text-xs mb-2">SPECIALTY</p>
               <div className="flex flex-wrap gap-2">
-                {["Real-Time Systems", "API Design", "JWT Auth", "System Thinking"].map((item, i) => (
+                {["Real-Time Systems", "API Design", "Security", "System Thinking"].map((item, i) => (
                   <span
                     key={i}
                     className="text-xs px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-300"
