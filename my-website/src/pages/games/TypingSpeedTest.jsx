@@ -1,24 +1,33 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
-/* ================= PARAGRAPH POOL ================= */
+/* ================= WORD BANK ================= */
 
-const PARAGRAPHS = {
-  easy: [
-    "React makes UI development simple and fast.",
-    "JavaScript is used for building interactive websites.",
-    "Frontend development is fun and creative."
-  ],
-  medium: [
-    "Frontend developers use React to build reusable components and manage application state efficiently.",
-    "JavaScript enables dynamic behavior in web applications and powers modern frameworks.",
-    "Building responsive user interfaces requires understanding layout, state, and user experience."
-  ],
-  hard: [
-    "Modern frontend engineering involves managing complex state transitions, optimizing rendering performance, and ensuring seamless user experience across devices.",
-    "React applications often rely on component composition, hooks, and efficient reconciliation algorithms to maintain scalability and performance.",
-    "Advanced UI systems require careful architecture planning, including state management, API integration, and performance optimization strategies."
-  ]
+const WORDS = [
+  "react", "javascript", "frontend", "developer", "design",
+  "performance", "optimization", "component", "state", "props",
+  "application", "interface", "dynamic", "responsive", "architecture",
+  "keyboard", "function", "variable", "object", "array",
+  "system", "network", "logic", "browser", "coding"
+];
+
+/* ================= GENERATE TEXT ================= */
+
+const generateText = (difficulty) => {
+  let length = 20;
+
+  if (difficulty === "easy") length = 15;
+  if (difficulty === "medium") length = 30;
+  if (difficulty === "hard") length = 60;
+
+  let text = [];
+
+  for (let i = 0; i < length; i++) {
+    const word = WORDS[Math.floor(Math.random() * WORDS.length)];
+    text.push(word);
+  }
+
+  return text.join(" ");
 };
 
 const TypingSpeedTest = () => {
@@ -31,33 +40,36 @@ const TypingSpeedTest = () => {
   const [wpm, setWpm] = useState(0);
   const [accuracy, setAccuracy] = useState(100);
 
-  const [errorMap, setErrorMap] = useState({}); // 🔥 heatmap
+  const [errorMap, setErrorMap] = useState({});
+  const [leaderboard, setLeaderboard] = useState([]);
 
-  /* ================= GET RANDOM TEXT ================= */
+  const [showStartAnim, setShowStartAnim] = useState(false);
+  const [showResult, setShowResult] = useState(false);
 
+  /* ================= LOAD LEADERBOARD ================= */
+  useEffect(() => {
+    const stored = JSON.parse(localStorage.getItem("typing_scores")) || [];
+    setLeaderboard(stored.slice(0, 5)); // always cap at 5
+  }, []);
+
+  /* ================= GENERATE TEXT ================= */
   const getRandomText = () => {
-    const pool = PARAGRAPHS[difficulty];
-
-    const random =
-      pool[Math.floor(Math.random() * pool.length)];
-
-    setText(random);
+    const newText = generateText(difficulty);
+    setText(newText);
     setInput("");
     setErrorMap({});
   };
 
-  /* prevent repeat same text */
   useEffect(() => {
     getRandomText();
   }, [difficulty]);
 
   /* ================= TIMER ================= */
-
   useEffect(() => {
     if (!isRunning) return;
 
     if (timeLeft <= 0) {
-      setIsRunning(false);
+      endTest();
       return;
     }
 
@@ -69,39 +81,62 @@ const TypingSpeedTest = () => {
   }, [timeLeft, isRunning]);
 
   /* ================= START ================= */
-
   const startGame = () => {
-    setInput("");
-    setTimeLeft(30);
-    setIsRunning(true);
-    setWpm(0);
-    setAccuracy(100);
-    setErrorMap({});
-    getRandomText();
+    setShowStartAnim(true);
+
+    setTimeout(() => {
+      setShowStartAnim(false);
+
+      setInput("");
+      setTimeLeft(30);
+      setIsRunning(true);
+      setWpm(0);
+      setAccuracy(100);
+      setErrorMap({});
+      setShowResult(false);
+      getRandomText();
+    }, 1000);
   };
 
-  /* ================= INPUT HANDLER ================= */
+  /* ================= END TEST ================= */
+  const endTest = () => {
+    setIsRunning(false);
+    saveScore();
+    setShowResult(true);
+  };
 
+  /* ================= SAVE SCORE ================= */
+  const saveScore = () => {
+    const newScore = {
+      wpm,
+      accuracy,
+      date: new Date().toLocaleTimeString(),
+    };
+
+    const updated = [newScore, ...leaderboard].slice(0, 5);
+    setLeaderboard(updated);
+    localStorage.setItem("typing_scores", JSON.stringify(updated));
+  };
+
+  /* ================= INPUT ================= */
   const handleChange = (e) => {
     if (!isRunning) return;
 
     const value = e.target.value;
     setInput(value);
 
-    /* WPM */
-    const words = value.trim().split(" ").length;
+    const words = value.trim().split(" ");
     const timeSpent = (30 - timeLeft) / 60 || 1;
-    setWpm(Math.round(words / timeSpent));
+    setWpm(Math.round(words.length / timeSpent));
 
-    /* ACCURACY + HEATMAP */
     let correct = 0;
-    const newErrors = { ...errorMap };
+    const newErrors = {};
 
     for (let i = 0; i < value.length; i++) {
       if (value[i] === text[i]) {
         correct++;
       } else {
-        newErrors[i] = true; // mark error position
+        newErrors[i] = true;
       }
     }
 
@@ -109,44 +144,60 @@ const TypingSpeedTest = () => {
 
     const acc = Math.round((correct / value.length) * 100) || 100;
     setAccuracy(acc);
+
+    /* COMPLETE BEFORE TIME */
+    if (value === text) {
+      endTest();
+    }
   };
 
-  /* ================= UI ================= */
-
   return (
-    <section className="min-h-screen bg-[#0a0a0a] text-white flex flex-col items-center justify-start pt-24 px-6">
+    <section className="min-h-screen bg-[#0a0a0a] text-white flex flex-col items-center pt-24 px-6">
+
+      {/* START ANIMATION */}
+      {showStartAnim && (
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          className="fixed inset-0 bg-black/80 flex items-center justify-center z-50"
+        >
+          <h2 className="text-3xl font-bold text-purple-400">
+            Test Starting...
+          </h2>
+        </motion.div>
+      )}
 
       {/* TITLE */}
-      <h1 className="text-4xl font-bold mb-4">
+      <h1 className="text-4xl font-bold mb-6">
         Typing Speed Test ⌨️
       </h1>
 
       {/* DIFFICULTY */}
-      <div className="flex gap-2 mb-4">
+      <div className="flex gap-2 mb-6">
         {["easy", "medium", "hard"].map((d) => (
           <button
             key={d}
             onClick={() => setDifficulty(d)}
-            className={`px-3 py-1 rounded border ${
+            className={`px-4 py-1 rounded-full border ${
               difficulty === d
                 ? "bg-purple-600 border-purple-500"
                 : "bg-white/5 border-white/10"
             }`}
           >
-            {d.toUpperCase()}
+            {d.charAt(0).toUpperCase() + d.slice(1)}
           </button>
         ))}
       </div>
 
       {/* STATS */}
-      <div className="flex gap-6 mb-4 text-gray-300">
-        <p>⏱ {timeLeft}s</p>
-        <p>⚡ WPM: {wpm}</p>
-        <p>🎯 Accuracy: {accuracy}%</p>
+      <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-6 w-full max-w-3xl">
+        <Stat label="Time" value={`${timeLeft}s`} />
+        <Stat label="WPM" value={wpm} />
+        <Stat label="Accuracy" value={`${accuracy}%`} />
       </div>
 
-      {/* TEXT WITH HEATMAP */}
-      <div className="max-w-3xl bg-white/5 p-4 rounded border border-white/10 mb-4 leading-relaxed">
+      {/* TEXT */}
+      <div className="max-w-3xl bg-white/5 p-4 rounded-lg border border-white/10 mb-4 leading-relaxed">
         {text.split("").map((char, i) => (
           <span
             key={i}
@@ -155,7 +206,7 @@ const TypingSpeedTest = () => {
                 ? "text-red-500"
                 : input[i] === char
                 ? "text-green-400"
-                : "text-gray-300"
+                : "text-gray-400"
             }
           >
             {char}
@@ -168,29 +219,75 @@ const TypingSpeedTest = () => {
         value={input}
         onChange={handleChange}
         disabled={!isRunning}
-        className="w-full max-w-3xl h-32 p-3 bg-black/40 border border-white/10 rounded"
+        className="w-full max-w-3xl h-32 p-3 bg-black/40 border border-white/10 rounded-lg"
         placeholder="Start typing..."
       />
 
-      {/* CONTROLS */}
-      <div className="mt-5 flex gap-3">
+      {/* BUTTONS */}
+      <div className="mt-6 flex gap-3 flex-wrap justify-center">
         <button
           onClick={startGame}
-          className="px-5 py-2 bg-purple-600 rounded"
+          className="px-6 py-2 bg-purple-600 rounded-lg"
         >
           Start
         </button>
 
         <button
           onClick={getRandomText}
-          className="px-5 py-2 bg-gray-700 rounded"
+          className="px-6 py-2 bg-gray-700 rounded-lg"
         >
           New Text
         </button>
       </div>
 
+      {/* RESULT */}
+      {showResult && (
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="mt-8 bg-white/5 border border-white/10 rounded-xl p-6 w-full max-w-3xl text-center"
+        >
+          <h2 className="text-2xl mb-4">🎉 Test Complete</h2>
+
+          <p className="mb-2">⚡ WPM: {wpm}</p>
+          <p className="mb-2">🎯 Accuracy: {accuracy}%</p>
+
+          <button
+            onClick={startGame}
+            className="mt-4 px-6 py-2 bg-purple-600 rounded-lg"
+          >
+            Try Again 🚀
+          </button>
+        </motion.div>
+      )}
+
+      {/* LEADERBOARD */}
+      <div className="mt-10 w-full max-w-3xl">
+        <h2 className="text-xl mb-3">🏆 Top Scores</h2>
+
+        {leaderboard.slice(0, 5).map((s, i) => (
+          <div
+            key={i}
+            className="flex justify-between bg-white/5 px-4 py-2 mb-2 rounded"
+          >
+            <span>{s.wpm} WPM</span>
+            <span>{s.accuracy}%</span>
+            <span className="text-gray-400 text-sm">{s.date}</span>
+          </div>
+        ))}
+      </div>
+
     </section>
   );
 };
+
+/* ================= STAT ================= */
+
+const Stat = ({ label, value }) => (
+  <div className="bg-white/5 border border-white/10 rounded-lg p-3 text-center">
+    <p className="text-gray-400 text-sm">{label}</p>
+    <p className="text-lg font-semibold">{value}</p>
+  </div>
+);
 
 export default TypingSpeedTest;
