@@ -16,8 +16,8 @@ export const projectsData = [
 
     tech: ["React", "Node.js", "MongoDB", "Socket.IO"],
 
-    live: "PASTE_MERN_LIVE_LINK_HERE",
-    github: "PASTE_MERN_GITHUB_LINK_HERE",
+    live: "https://mern-todo-fullstack.vercel.app/login",
+    // github: "PASTE_MERN_GITHUB_LINK_HERE",
   },
 
   {
@@ -37,8 +37,8 @@ export const projectsData = [
 
     tech: ["React", "Node.js", "PostgreSQL", "Socket.IO"],
 
-    live: "PASTE_PERN_LIVE_LINK_HERE",
-    github: "PASTE_PERN_GITHUB_LINK_HERE",
+    live: "https://todo-list-swart-delta-73.vercel.app/login",
+    // github: "PASTE_PERN_GITHUB_LINK_HERE",
   },
 
   {
@@ -60,6 +60,6 @@ export const projectsData = [
   tech: ["React", "JavaScript", "CSS", "React Hooks", "State Management"],
 
   live: "/games",
-  github: "OPTIONAL_GITHUB_LINK_HERE",
+  // github: "OPTIONAL_GITHUB_LINK_HERE",
 },
 ];

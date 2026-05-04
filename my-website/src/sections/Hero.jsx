@@ -81,12 +81,12 @@ const Hero = () => {
             </button>
 
             {/* Resume Download */}
-            <a
+            {/* <a
               download="Muhammad_Talha_Resume.pdf"
               className="px-6 py-3 rounded-xl border border-white/20 hover:border-white/40 transition flex items-center justify-center gap-2"
             >
               Resume <Download size={18} />
-            </a>
+            </a> */}
           </div>
         </motion.div>
 
