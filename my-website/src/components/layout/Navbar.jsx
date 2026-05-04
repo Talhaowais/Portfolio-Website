@@ -55,7 +55,6 @@ export default function Navbar() {
               Contact
             </button>
 
-            {/* ✅ Games (now consistent button behavior) */}
             <button
               onClick={() => {
                 setMenuOpen(false);
@@ -68,11 +67,11 @@ export default function Navbar() {
 
           </div>
 
-          {/* CTA (desktop) */}
+          {/* ✅ CTA (FIXED - no nested button) */}
           <div className="hidden md:block">
-            <button onClick={() => goToSection("contact")}>
-              <Button>Hire Me</Button>
-            </button>
+            <Button onClick={() => goToSection("contact")}>
+              Hire Me
+            </Button>
           </div>
 
           {/* MOBILE MENU BUTTON */}
@@ -105,7 +104,6 @@ export default function Navbar() {
               Contact
             </button>
 
-            {/* ✅ Games (fixed mobile too) */}
             <button
               onClick={() => {
                 setMenuOpen(false);
@@ -116,13 +114,13 @@ export default function Navbar() {
               Games
             </button>
 
-            {/* CTA */}
-            <button
+            {/* ✅ CTA FIXED */}
+            <Button
               onClick={() => goToSection("contact")}
               className="mt-2"
             >
-              <Button>Hire Me</Button>
-            </button>
+              Hire Me
+            </Button>
 
           </div>
         )}

@@ -22,7 +22,7 @@ const games = [
   {
     name: "Memory Game",
     image: memoryGameImg,
-    route: null,
+    route: "/games/memory",
   },
   {
     name: "Mini Chat App",

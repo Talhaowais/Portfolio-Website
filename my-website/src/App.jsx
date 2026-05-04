@@ -7,8 +7,10 @@ import Footer from "./components/layout/Footer";
 
 import Home from "./pages/Home";
 import Games from "./pages/Games";
+
 import TicTacToe from "./pages/games/TicTacToe";
 import TypingSpeedTest from "./pages/games/TypingSpeedTest";
+import MemoryGame from "./pages/games/MemoryGame";
 
 export default function App() {
   const location = useLocation();
@@ -39,6 +41,8 @@ export default function App() {
          {/* Games routes */}
         <Route path="/games/tic-tac-toe" element={<TicTacToe />} />
         <Route path="/games/typing" element={<TypingSpeedTest />} />
+        <Route path="/games/memory" element={<MemoryGame />} />
+
       </Routes>
 
       <Footer />
