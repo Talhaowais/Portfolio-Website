@@ -40,4 +40,26 @@ export const projectsData = [
     live: "PASTE_PERN_LIVE_LINK_HERE",
     github: "PASTE_PERN_GITHUB_LINK_HERE",
   },
+
+  {
+  title: "Interactive Game Collection (Frontend Engineering Practice)",
+  stack: "React, JavaScript, UI Logic, State Management, Real-Time UI",
+
+  description:
+    "A collection of four interactive web applications built to strengthen core frontend engineering skills including state management, real-time UI updates, and user interaction design. These projects were intentionally built as hands-on practice beyond tutorials to understand how real applications behave under dynamic user input.",
+
+  features: [
+    "Tic Tac Toe – logic-based turn system with win/draw detection",
+    "Typing Speed Test – real-time input tracking and performance scoring",
+    "Memory Game – card matching system with state reset logic",
+    "Mini Chat App – simulated real-time messaging UI with dynamic rendering",
+    "Focus on React hooks and component reusability",
+    "Smooth and responsive UI interactions across all games",
+  ],
+
+  tech: ["React", "JavaScript", "CSS", "React Hooks", "State Management"],
+
+  live: "/games",
+  github: "OPTIONAL_GITHUB_LINK_HERE",
+},
 ];

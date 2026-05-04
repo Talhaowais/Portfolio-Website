@@ -27,7 +27,7 @@ const games = [
   {
     name: "Mini Chat App",
     image: chatAppImg,
-    route: null,
+    route: "/games/chatapp",
   },
 ];
 

@@ -121,16 +121,7 @@ const Projects = () => {
                         Live Demo
                       </a>
 
-                      <a
-                        href={project.github}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="flex items-center gap-2 px-4 py-2 rounded-lg 
-                        border border-white/20 hover:bg-white/10 transition"
-                      >
-                        {getIcon("Github", "text-white")}
-                        Code
-                      </a>
+                      
                     </div>
                   </motion.div>
                 )}

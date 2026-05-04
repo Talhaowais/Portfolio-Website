@@ -20,7 +20,6 @@ const item = {
 const Skills = () => {
   const topSkills = skillsData.filter((cat) => cat.top);
 
-  // 🔥 Dynamic Icon Loader with Color Support
   const getIcon = (iconName, color = "") => {
     const IconComponent = Icons[iconName];
     return IconComponent ? (
@@ -29,30 +28,30 @@ const Skills = () => {
   };
 
   return (
-    <section id="skills" className="py-20 px-6 bg-[#0a0a0a] text-white">
+    <section id="skills" className="py-16 sm:py-20 px-4 sm:px-6 bg-[#0a0a0a] text-white">
       <div className="max-w-6xl mx-auto">
 
         {/* Heading */}
         <motion.h2
           initial={{ opacity: 0, y: -20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          className="text-4xl font-bold text-center mb-12"
+          className="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-10 sm:mb-12"
         >
           Skills & Expertise
         </motion.h2>
 
         {/* ⭐ Top Skills */}
-        <div className="mb-14">
-          <h3 className="text-xl font-semibold mb-4 text-purple-400">
+        <div className="mb-12 sm:mb-14">
+          <h3 className="text-lg sm:text-xl font-semibold mb-4 text-purple-400">
             ⭐ Top Skills
           </h3>
 
-          <div className="flex flex-wrap gap-3">
+          <div className="flex flex-wrap gap-2 sm:gap-3">
             {topSkills.map((cat) =>
               cat.skills.slice(0, 3).map((skill, i) => (
                 <span
                   key={i}
-                  className="flex items-center gap-2 px-4 py-2 rounded-full 
+                  className="flex items-center gap-2 px-3 sm:px-4 py-2 text-sm sm:text-base rounded-full 
                   bg-white/10 border border-white/10 
                   hover:shadow-[0_0_15px_rgba(168,85,247,0.6)] 
                   transition-all duration-300"
@@ -70,13 +69,13 @@ const Skills = () => {
           variants={container}
           initial="hidden"
           whileInView="show"
-          className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6"
         >
           {skillsData.map((category, idx) => (
             <motion.div
               key={idx}
               variants={item}
-              className="p-6 rounded-2xl bg-white/5 border border-white/10 
+              className="p-4 sm:p-6 rounded-2xl bg-white/5 border border-white/10 
               hover:border-purple-500/40 hover:shadow-[0_0_25px_rgba(168,85,247,0.25)]
               transition-all duration-300 relative overflow-hidden group"
             >
@@ -89,7 +88,7 @@ const Skills = () => {
                 <span>
                   {getIcon(category.icon, "text-purple-400")}
                 </span>
-                <h3 className="text-xl font-semibold">
+                <h3 className="text-lg sm:text-xl font-semibold">
                   {category.category}
                 </h3>
               </div>
@@ -100,7 +99,7 @@ const Skills = () => {
                   <motion.span
                     key={i}
                     variants={item}
-                    className="flex items-center gap-2 px-3 py-1 text-sm rounded-full 
+                    className="flex items-center gap-2 px-2 sm:px-3 py-1 text-xs sm:text-sm rounded-full 
                     bg-white/10 border border-white/10 
                     hover:bg-purple-500/20 hover:scale-105
                     hover:shadow-[0_0_12px_rgba(168,85,247,0.5)]
