@@ -101,12 +101,12 @@ const Hero = () => {
             animate={{ rotateY: flipped ? 180 : 0 }}
             transition={{ duration: 0.8, ease: "easeInOut" }}
             style={{ transformStyle: "preserve-3d" }}
-            className="relative w-full max-w-[520px] h-[420px]"
+            className="relative w-full max-w-[520px] h-[500px] md:h-[450px]"
           >
 
             {/* ================= FRONT SIDE ================= */}
             <div
-              className="absolute inset-0 bg-white/5 border border-white/10 rounded-3xl backdrop-blur-xl p-6 shadow-2xl"
+              className="absolute inset-0 bg-white/5 border border-white/10 rounded-3xl backdrop-blur-xl p-6 shadow-2xl flex flex-col justify-between"
               style={{ backfaceVisibility: "hidden" }}
             >
 
