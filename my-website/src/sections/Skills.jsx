@@ -48,7 +48,7 @@ const Skills = () => {
 
           <div className="flex flex-wrap gap-2 sm:gap-3">
             {topSkills.map((cat) =>
-              cat.skills.slice(0, 3).map((skill, i) => (
+              cat.skills.slice(0, 4).map((skill, i) => (
                 <span
                   key={i}
                   className="flex items-center gap-2 px-3 sm:px-4 py-2 text-sm sm:text-base rounded-full 

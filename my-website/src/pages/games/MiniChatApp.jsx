@@ -20,6 +20,13 @@ const talhaBrain = {
     "You should hire me because I combine development skills with QA expertise, ensuring both functionality and quality in every project.",
 
   personality: ["problem-solver", "detail-oriented", "fast learner"],
+
+  // 👇 ADD YOUR REAL DETAILS HERE
+  contact: {
+    email: "talhaowais345@gmail.com",
+    phone: "+92 302 9791613",
+    whatsapp: "+92 302 9791613",
+  },
 };
 
 /* ================= AI ENGINE ================= */
@@ -55,6 +62,13 @@ const getAIResponse = (input) => {
       response: () =>
         `My key strengths are: ${talhaBrain.personality.join(", ")}.`,
     },
+
+    // ✅ NEW CONTACT INTENT
+    {
+      keywords: ["contact", "reach", "email", "phone", "number", "whatsapp"],
+      response: () =>
+        `You can contact me here:\n📧 Email: ${talhaBrain.contact.email}\n📞 Phone: ${talhaBrain.contact.phone}\n💬 WhatsApp: ${talhaBrain.contact.whatsapp}`,
+    },
   ];
 
   for (let intent of intents) {
@@ -63,7 +77,7 @@ const getAIResponse = (input) => {
     }
   }
 
-  return "That's a great question! You can ask about my skills, experience, or why I'm a good fit 😊";
+  return "That's a great question! You can ask about my skills, experience, or contact details 😊";
 };
 
 /* ================= EMOJIS ================= */
@@ -95,14 +109,12 @@ const MiniChatApp = () => {
     });
   }, [messages, typing]);
 
-  /* ================= TIME FORMAT ================= */
   const formatTime = (date) =>
     date.toLocaleTimeString([], {
       hour: "2-digit",
       minute: "2-digit",
     });
 
-  /* ================= SEND MESSAGE ================= */
   const sendMessage = () => {
     if (!input.trim()) return;
 
@@ -119,7 +131,6 @@ const MiniChatApp = () => {
     simulateAI(input);
   };
 
-  /* ================= SMART AI SIMULATION ================= */
   const simulateAI = (input) => {
     const thinkingOptions = [
       "Thinking...",
@@ -150,7 +161,6 @@ const MiniChatApp = () => {
     }, delay);
   };
 
-  /* ================= EMOJI ADD ================= */
   const addEmoji = (emoji) => {
     setInput((prev) => prev + emoji);
     setShowEmoji(false);
@@ -162,18 +172,20 @@ const MiniChatApp = () => {
 
       {/* QUICK QUESTIONS */}
       <div className="flex flex-wrap gap-2 mb-4 max-w-xl">
-        {["Who are you?", "Your skills?", "Why hire you?"].map((q, i) => (
-          <button
-            key={i}
-            onClick={() => {
-              setInput(q);
-              setTimeout(() => sendMessage(), 100);
-            }}
-            className="px-3 py-1 bg-white/10 rounded-full text-sm hover:bg-white/20"
-          >
-            {q}
-          </button>
-        ))}
+        {["Who are you?", "Your skills?", "Why hire you?", "Contact?"].map(
+          (q, i) => (
+            <button
+              key={i}
+              onClick={() => {
+                setInput(q);
+                setTimeout(() => sendMessage(), 100);
+              }}
+              className="px-3 py-1 bg-white/10 rounded-full text-sm hover:bg-white/20"
+            >
+              {q}
+            </button>
+          )
+        )}
       </div>
 
       {/* CHAT BOX */}
@@ -189,9 +201,7 @@ const MiniChatApp = () => {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               className={`flex ${
-                msg.sender === "user"
-                  ? "justify-end"
-                  : "justify-start"
+                msg.sender === "user" ? "justify-end" : "justify-start"
               }`}
             >
               <div
@@ -201,7 +211,7 @@ const MiniChatApp = () => {
                     : "bg-white/10"
                 }`}
               >
-                <p>{msg.text}</p>
+                <p className="whitespace-pre-line">{msg.text}</p>
                 <p className="text-[10px] text-gray-300 mt-1 text-right">
                   {formatTime(msg.time)}
                 </p>
@@ -209,7 +219,6 @@ const MiniChatApp = () => {
             </motion.div>
           ))}
 
-          {/* TYPING */}
           {typing && (
             <div className="flex justify-start">
               <div className="bg-white/10 px-4 py-2 rounded-2xl text-sm animate-pulse">
@@ -235,10 +244,10 @@ const MiniChatApp = () => {
         )}
 
         {/* INPUT */}
-        <div className="p-3 border-t border-white/10 flex gap-2 items-center">
+        <div className="p-3 border-t border-white/10 flex items-center gap-2">
           <button
             onClick={() => setShowEmoji((p) => !p)}
-            className="text-xl"
+            className="text-xl flex-shrink-0"
           >
             😊
           </button>
@@ -248,12 +257,12 @@ const MiniChatApp = () => {
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={(e) => e.key === "Enter" && sendMessage()}
             placeholder="Ask about Talha..."
-            className="flex-1 px-3 py-2 rounded-lg bg-white/10 outline-none"
+            className="flex-1 min-w-0 px-3 py-2 rounded-lg bg-white/10 outline-none"
           />
 
           <button
             onClick={sendMessage}
-            className="px-4 py-2 bg-purple-600 rounded-lg"
+            className="px-4 py-2 bg-purple-600 rounded-lg flex-shrink-0 whitespace-nowrap"
           >
             Send
           </button>
