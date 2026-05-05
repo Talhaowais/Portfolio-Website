@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { Typewriter } from "react-simple-typewriter";
@@ -12,6 +12,29 @@ import {
 } from "lucide-react";
 
 const About = () => {
+  const [startTyping, setStartTyping] = useState(false);
+  const typeRef = useRef(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0];
+
+        if (entry.isIntersecting) {
+          setStartTyping(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.4 }
+    );
+
+    if (typeRef.current) {
+      observer.observe(typeRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
   const timelineData = [
     { id: 1, text: `I started my journey in tech during the COVID period in late 2021, with a strong interest in software development. Like many beginners, the initial phase was challenging, and breaking into the industry wasn’t easy.` },
     { id: 2, text: `To support my family, I took on multiple roles — working in a call center while also doing bike rides through Uber. During this time, I explored different paths in tech and discovered Quality Assurance (QA).` },
@@ -31,20 +54,22 @@ const About = () => {
       </div>
 
       {/* ✨ GRADIENT TYPING HERO STATEMENT */}
-      <div className="text-center mb-16">
+      <div ref={typeRef} className="text-center mb-16">
         <h1 className="text-2xl md:text-3xl font-bold">
           <span className="bg-gradient-to-r from-purple-400 via-pink-500 to-cyan-400 bg-clip-text text-transparent animate-pulse">
-            <Typewriter
-              words={[
-                "From QA Engineer to Full-Stack Developer — building real-time applications with a strong foundation in quality and performance."
-              ]}
-              loop={1}
-              cursor
-              cursorStyle="|"
-              typeSpeed={40}
-              deleteSpeed={0}
-              delaySpeed={1000}
-            />
+            {startTyping && (
+              <Typewriter
+                words={[
+                  "From QA Engineer to Full-Stack Developer — building real-time applications with a strong foundation in quality and performance."
+                ]}
+                loop={1}
+                cursor
+                cursorStyle="|"
+                typeSpeed={40}
+                deleteSpeed={0}
+                delaySpeed={1000}
+              />
+            )}
           </span>
         </h1>
       </div>
@@ -136,7 +161,6 @@ const About = () => {
           </span>
         </h3>
 
-        {/* THE GRID CONTAINER */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-24 relative">
           {timelineData.map((item, index) => {
             const isLast = index === timelineData.length - 1;
@@ -150,7 +174,6 @@ const About = () => {
                 transition={{ duration: 0.5 }}
                 className="relative z-10"
               >
-                {/* CARD CONTENT */}
                 <div className="relative p-6 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md hover:bg-white/[0.08] transition-all group">
                   <div className="absolute -top-4 -left-4 w-10 h-10 bg-purple-600 rounded-full flex items-center justify-center font-bold text-white shadow-lg">
                     {item.id}
@@ -160,7 +183,6 @@ const About = () => {
                   </p>
                 </div>
 
-                {/* SVG CONNECTOR LOGIC */}
                 {!isLast && (
                   <div className="hidden md:block absolute top-1/2 w-full pointer-events-none overflow-visible">
                     <svg width="200" height="200" className="absolute top-0 overflow-visible">
@@ -170,7 +192,6 @@ const About = () => {
                         </marker>
                       </defs>
 
-                      {/* Path from Card 1 -> 2 (Horizontal Bridge) */}
                       {!isRightCol && (index + 1 < timelineData.length) && (
                         <path
                           d="M 460 0 L 525 0"
@@ -181,7 +202,6 @@ const About = () => {
                         />
                       )}
 
-                      {/* Path from Card 2 -> 3 (Vertical Snake Bridge) */}
                       {isRightCol && (
                         <path
                           d="M 460 0 C 550 0, 550 120, 0 120"

@@ -68,8 +68,8 @@ const Hero = () => {
           </div>
 
           <p className="mt-6 text-gray-400 leading-relaxed max-w-md mx-auto md:mx-0 text-sm sm:text-base">
-            I build scalable, real-time web applications with a focus on performance,
-            reliability, and clean architecture.
+            Let’s build websites and applications that solve real-world problems. Share your vision, 
+            and I’ll help you turn it into a scalable, production-ready product.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 mt-8 justify-center md:justify-start">

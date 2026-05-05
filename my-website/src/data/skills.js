@@ -5,7 +5,7 @@ export const skillsData = [
     top: true,
     skills: [
       { name: "React.js", icon: "Atom", color: "text-cyan-400" },
-      { name: "JavaScript", icon: "FileCode2", color: "text-yellow-400" },
+      { name: "JavaScript (ES6+)", icon: "FileCode2", color: "text-yellow-400" },
       { name: "HTML5", icon: "Code2", color: "text-orange-500" },
       { name: "CSS3", icon: "Palette", color: "text-blue-400" },
       { name: "Tailwind CSS", icon: "Wind", color: "text-sky-400" },
